@@ -1,0 +1,15 @@
+# display useful information
+help:
+    @just --list
+
+# open the notebook, loading the seiche package
+notebook:
+    @uv run --project ../../seiche --with-editable ../../seiche --with marimo --with contextily --with seaborn --with pyarrow marimo edit notebook.py
+
+# simulate color blindness on the figures in ../imgs, save results in cvd_out/
+colorblind:
+    @uv run --isolated --with daltonize --with "setuptools<81" python colorblind_check.py
+
+# regenerate the SEICHE user guide and API reference appendices
+seiche-docs:
+    @uv run --isolated --with beautifulsoup4 --with pypandoc-binary --with pyyaml python seiche_docs_to_typst.py
